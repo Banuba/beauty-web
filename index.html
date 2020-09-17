@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Banuba SDK Web AR beautificationa & makeup demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.6/dist/semantic.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.6/dist/semantic.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="ui container">
+    <main>
+      <span id="fps">
+        FRX FPS: <span id="frx"></span>
+        </br>
+        DOM FPS: <span id="dom"></span>
+      </span>
+      <div id="webar"></div>
+    </main>
+
+    <aside>
+      <button class="ui right labeled icon primary button" id="screenshot">
+        <i class="file image icon"></i>
+        Screenshot
+      </button>
+    </aside>
+
+    <script src="BanubaClientToken.js"></script>
+    <script type="module">
+      import { Effect, Webcam, Player, ImageCapture, Dom } from "./BanubaSDK.js"
+
+      ;(async () => {       
+        const player = await Player.create({
+          clientToken: window.BANUBA_CLIENT_TOKEN,
+          onFPSUpdate: fps => $("#frx").text(Math.floor(fps)),
+        })
+
+        player.use(new Webcam())
+
+        player.applyEffect(new Effect("Makeup.zip"))
+
+        Dom.render(player, "#webar")
+        
+        //#region fps
+        let frames = 0;
+        player.addEventListener("framerendered", () => frames++)
+
+        setInterval(() => {
+          $("#dom").text(frames)
+          frames = 0
+        }, 1000)
+        //#endregion
+
+        //#region beauty options
+        const customizations = [
+          ["Eyebrows.color", "0.8 0.4 0.2 0.2"],
+          ["Eyeshadow.color", "0.6 0.5 1 0.6"],
+          ["Eyeliner.color", "0 0 0"],
+          ["Eyelashes.color", "0 0 0.2"],
+          ["Foundation.strength", 0.8],
+          ["Contour.color", "0.3 0.1 0.1 0.3"],
+          ["Highlighter.color", "1 1 0.6 0.2"],
+          ["Blush.color", "0.7 0.1 0.2 0.4"],
+          ["TeethWhitening.strength", 1],
+          ["FaceMorph.eyes", 0.4],
+          ["FaceMorph.face", 0.2],
+          ["FaceMorph.nose", 0.6],
+        ]
+
+        $.each(customizations, (idx, [customizationName, initialValue]) => {
+          const isVector = customizationName.endsWith("color")
+          const isScalar = !isVector
+          
+          let customization
+          const onChange = (value) => player.callJsMethod(customizationName, JSON.stringify(value))
+
+          if  (isScalar) {
+            customization = $(`
+              <div class="customization">
+                <div class="ui toggle checkbox">
+                  <input type="checkbox">
+                  <label>${customizationName}</label>
+                </div>
+                <div class="ui blue slider"></div>
+              </div>
+            `)
+
+            const slider = customization
+              .find(".ui.slider")
+              .slider({ min: 0, max: 1, step: 0.1, start: initialValue, smooth: true, onChange })
+              .toggleClass("disabled")
+
+            const checkbox = customization
+              .find("input[type=checkbox]")
+              .on("change", _ => onChange(checkbox.is(':checked') ? slider.slider('get value') : 0))
+              .on("change", _ => slider.toggleClass("disabled"))
+          }
+
+          if (isVector) {
+            customization = $(`
+              <div class="customization">
+                <div class="ui toggle checkbox">
+                  <input type="checkbox">
+                  <label>${customizationName}</label>
+                </div>
+                <div class="ui input">
+                  <input type="text" placeholder="0 0 0 0" value="${initialValue}">
+                </div>
+              </div>
+            `)
+
+            const wrapper = customization
+              .find(".ui.input")
+              .toggleClass("disabled")
+
+            const input = wrapper
+              .find("input[type=text]")
+              .on("blur", _ => onChange(input.val()))
+
+            const checkbox = customization
+              .find("input[type=checkbox]")
+              .on("change", _ => onChange(checkbox.is(':checked') ? input.val() : "0 0 0 0"))
+              .on("change", _ => wrapper.toggleClass("disabled"))
+          }
+
+          $("aside").append(customization)
+        })      
+        //#endregion
+
+        //#region image capture
+        const capture = new ImageCapture(player)
+
+        $("#screenshot").on("click", async () => $("body").toast({
+          title: "Screenshot is ready",
+          message: `Check the <a href="${URL.createObjectURL(await capture.takePhoto())}" target="_blank">link</a>`,
+          class: { toast: "ui info message" },
+        }))
+        //#endregion
+      })()
+    </script>
+</body>
+
+</html>
