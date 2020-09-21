@@ -8,6 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.6/dist/semantic.min.css">
   <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.6/dist/semantic.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/PitPik/tinyColorPicker@master/jqColorPicker.min.js"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -58,7 +59,7 @@
         const customizations = [
           ["Eyebrows.color", "0.8 0.4 0.2 0.2"],
           ["Eyeshadow.color", "0.6 0.5 1 0.6"],
-          ["Eyeliner.color", "0 0 0"],
+          ["Eyeliner.color", "0 0 0 1"],
           ["Eyelashes.color", "0 0 0.2"],
           ["Foundation.strength", 0.8],
           ["Contour.color", "0.3 0.1 0.1 0.3"],
@@ -71,62 +72,14 @@
         ]
 
         $.each(customizations, (idx, [customizationName, initialValue]) => {
-          const isVector = customizationName.endsWith("color")
-          const isScalar = !isVector
-          
-          let customization
+          const isColor = customizationName.endsWith("color")
+          const createCustomization = isColor ? createColorPicker : createSlider
+         
           const onChange = (value) => player.callJsMethod(customizationName, JSON.stringify(value))
 
-          if  (isScalar) {
-            customization = $(`
-              <div class="customization">
-                <div class="ui toggle checkbox">
-                  <input type="checkbox">
-                  <label>${customizationName}</label>
-                </div>
-                <div class="ui blue slider"></div>
-              </div>
-            `)
-
-            const slider = customization
-              .find(".ui.slider")
-              .slider({ min: 0, max: 1, step: 0.1, start: initialValue, smooth: true, onChange })
-              .toggleClass("disabled")
-
-            const checkbox = customization
-              .find("input[type=checkbox]")
-              .on("change", _ => onChange(checkbox.is(':checked') ? slider.slider('get value') : 0))
-              .on("change", _ => slider.toggleClass("disabled"))
-          }
-
-          if (isVector) {
-            customization = $(`
-              <div class="customization">
-                <div class="ui toggle checkbox">
-                  <input type="checkbox">
-                  <label>${customizationName}</label>
-                </div>
-                <div class="ui input">
-                  <input type="text" placeholder="0 0 0 0" value="${initialValue}">
-                </div>
-              </div>
-            `)
-
-            const wrapper = customization
-              .find(".ui.input")
-              .toggleClass("disabled")
-
-            const input = wrapper
-              .find("input[type=text]")
-              .on("blur", _ => onChange(input.val()))
-
-            const checkbox = customization
-              .find("input[type=checkbox]")
-              .on("change", _ => onChange(checkbox.is(':checked') ? input.val() : "0 0 0 0"))
-              .on("change", _ => wrapper.toggleClass("disabled"))
-          }
-
-          $("aside").append(customization)
+          $("aside").append(
+            createCustomization(customizationName, initialValue, onChange)
+          )
         })      
         //#endregion
 
@@ -139,6 +92,83 @@
           class: { toast: "ui info message" },
         }))
         //#endregion
+
+        //#region helpers
+        function createSlider(name, initialValue, onChange) {
+          const customization = $(`
+              <div class="customization">
+                <div class="ui toggle checkbox">
+                  <input type="checkbox">
+                  <label>${name}</label>
+                </div>
+                <div class="ui blue slider"></div>
+              </div>
+            `)
+
+          const slider = customization
+            .find(".ui.slider")
+            .slider({ min: 0, max: 1, step: 0.1, start: initialValue, smooth: true, onChange })
+            .toggleClass("disabled")
+
+          const checkbox = customization
+            .find("input[type=checkbox]")
+            .on("change", _ => onChange(checkbox.is(':checked') ? slider.slider('get value') : 0))
+            .on("change", _ => slider.toggleClass("disabled"))
+
+          return customization
+        }
+
+        function createColorPicker(name, initialValue, onChange) {
+          const customization = $(`
+                <div class="customization">
+                  <div class="ui toggle checkbox">
+                    <input type="checkbox">
+                    <label>${name}</label>
+                  </div>
+                  <div class="ui input" value="rgba(${
+                    initialValue
+                      .split(" ")
+                      .map((v, i) => i === 3 ? v : Math.round(v * 255))
+                      .join(", ")
+                  })">
+                    <input type="text" placeholder="0 0 0 0" value="${initialValue}" readonly>
+                  </div>
+                </div>
+              `)
+
+          const formatter = new Intl.NumberFormat([], {
+              useGrouping: false,
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 2,
+          })
+
+          const wrapper = customization
+            .find(".ui.input")
+            .toggleClass("disabled")
+            .colorPicker({
+              body: window,
+              renderCallback() {
+                const { rgb: { r = 0, g = 0, b = 0 }, alpha = 1 } = this.color.colors
+
+                const value = [r, g, b, alpha].map(v => formatter.format(v)).join(" ")
+
+                input.val(value)
+
+                onChange(input.val())
+              }
+            })
+
+          const input = wrapper
+            .find("input[type=text]")
+
+          const checkbox = customization
+            .find("input[type=checkbox]")
+            .on("change", _ => onChange(checkbox.is(':checked') ? input.val() : "0 0 0 0"))
+            .on("change", _ => wrapper.toggleClass("disabled"))
+
+          return customization
+        }
+        //endregion
       })()
     </script>
 </body>

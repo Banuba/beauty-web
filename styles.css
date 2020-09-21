@@ -39,6 +39,24 @@ aside {
   word-break: break-word;
 }
 
+.ui.input {
+  border-radius: 0.285714rem;
+  pointer-events: none;
+}
+
+.ui.input > input,
+.ui.input > input:focus {
+  color: currentColor;
+  background-color: inherit;
+  pointer-events: all;
+}
+
+div.cp-color-picker {
+  z-index: 99999;
+  border: 1px solid #999;
+  background-color: #efefef;
+}
+
 #webar {
   line-height: 0
 }
