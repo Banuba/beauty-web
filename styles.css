@@ -6,7 +6,6 @@ body.ui.container {
 }
 
 main {
-  overflow: hidden;
   position: relative;
 }
 
@@ -68,7 +67,18 @@ div.cp-color-picker {
   left: 1rem;
   color: rgba(255,255,255,0.8);
   font-weight: bold;
-  font-family: sans-serif; 
+  font-family: sans-serif;
+}
+
+.ui.sub.header {
+  position: absolute;
+  bottom: -5rem
+}
+
+.ui.dropdown.selection {
+  display:block;
+  margin-top: 4px;
+
 }
 
 #screenshot {

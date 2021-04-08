@@ -14,12 +14,22 @@
 
 <body class="ui container">
     <main>
-      <span id="fps">
-        FRX FPS: <span id="frx"></span>
-        </br>
-        DOM FPS: <span id="dom"></span>
-      </span>
-      <div id="webar"></div>
+        <span id="fps">
+        Webcam FPS: <span id="cam"></span>
+          </br>
+          Processing FPS: <span id="processing"></span>
+          </br>
+          Render FPS: <span id="render"></span>
+        </span>
+        <div id="webar"></div>
+        <label class="ui sub header">
+            FPS lock
+            <select class="ui dropdown">
+                <option value="30" selected>30</option>
+                <option value="60">60</option>
+                <option value="-1">🔥 Unlocked 🔥</option>
+            </select>
+        </label>
     </main>
 
     <aside>
@@ -31,27 +41,35 @@
 
     <script src="BanubaClientToken.js"></script>
     <script type="module">
-      import { Effect, Webcam, Player, ImageCapture, Dom } from "./BanubaSDK.js"
+        import { Effect, Webcam, Player, ImageCapture, Dom } from "./BanubaSDK.js"
 
-      ;(async () => {       
-        const player = await Player.create({
-          clientToken: window.BANUBA_CLIENT_TOKEN,
-          onFPSUpdate: fps => $("#frx").text(Math.floor(fps)),
-        })
+        ;(async () => {
+        const wcam = new Webcam()
+        const player = await Player.create({ clientToken: window.BANUBA_CLIENT_TOKEN })
 
-        player.use(new Webcam())
+        player.use(wcam)
 
-        player.applyEffect(new Effect("Makeup.zip"))
+        $('select').dropdown({ onChange: (fps) => player.use(wcam, { fps }) })
 
         Dom.render(player, "#webar")
-        
+
         //#region fps
-        let frames = 0;
-        player.addEventListener("framerendered", () => frames++)
+        const fps = {
+          cam: 0,
+          processing: 0,
+          render: 0,
+        }
+        player.addEventListener("framereceived", () => fps.cam++)
+        player.addEventListener("frameprocessed", ({ detail }) => fps.processing = 1. / detail.averagedDuration)
+        player.addEventListener("framerendered", () => fps.render++)
 
         setInterval(() => {
-          $("#dom").text(frames)
-          frames = 0
+          Object
+              .entries(fps)
+              .forEach(([name, value]) => {
+                  fps[name] = 0
+                  $(`#${name}`).text(value.toFixed(1))
+              })
         }, 1000)
         //#endregion
 
