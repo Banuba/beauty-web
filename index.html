@@ -22,14 +22,6 @@
           Render FPS: <span id="render"></span>
         </span>
         <div id="webar"></div>
-        <label class="ui sub header">
-            FPS lock
-            <select class="ui dropdown">
-                <option value="30" selected>30</option>
-                <option value="60">60</option>
-                <option value="-1">🔥 Unlocked 🔥</option>
-            </select>
-        </label>
     </main>
 
     <aside>
@@ -48,8 +40,6 @@
         const player = await Player.create({ clientToken: window.BANUBA_CLIENT_TOKEN })
 
         player.use(wcam)
-
-        $('select').dropdown({ onChange: (fps) => player.use(wcam, { fps }) })
 
         Dom.render(player, "#webar")
 

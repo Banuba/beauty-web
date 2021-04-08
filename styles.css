@@ -70,17 +70,6 @@ div.cp-color-picker {
   font-family: sans-serif;
 }
 
-.ui.sub.header {
-  position: absolute;
-  bottom: -5rem
-}
-
-.ui.dropdown.selection {
-  display:block;
-  margin-top: 4px;
-
-}
-
 #screenshot {
   margin-bottom: 0.5rem;
 }
