@@ -40,7 +40,7 @@
         const player = await Player.create({ clientToken: window.BANUBA_CLIENT_TOKEN })
 
         player.use(wcam)
-
+        player.applyEffect(new Effect("Makeup.zip"))
         Dom.render(player, "#webar")
 
         //#region fps
