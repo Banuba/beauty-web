@@ -73,3 +73,42 @@ div.cp-color-picker {
 #screenshot {
   margin-bottom: 0.5rem;
 }
+
+@media only screen and (max-width: 768px) { 
+  body {
+    position: relative;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  main, #webar {
+    width: 100%;
+    height: 100%;
+  }
+  #webar {
+    display: flex;
+  }
+  #webar > canvas {
+    object-fit: cover;
+  }
+
+  aside {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    max-height: 100%; 
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  aside > * {
+    flex-shrink: 0;
+  }
+  .customization {
+    flex-direction: column;
+    align-items: end;
+    gap: 1rem;
+  }
+  .ui.input {
+    max-width: 8.5rem;
+  }
+}
