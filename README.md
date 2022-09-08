@@ -27,14 +27,17 @@ git clone git@github.com:Banuba/beauty-web.git
 ```
 
 Navigate to the cloned folder:
+
 ```sh
 cd beauty-web
 ```
 
 Run the `live-server` in the cloned folder
+
 ```sh
 npx live-server
 ```
+
 \* [Nodejs](https://nodejs.org/en/) must be installed to run the `npx live-server` command
 
 Open [localhost:8080](http://localhost:8080) and start clicking :)
@@ -62,11 +65,13 @@ To receive a new **trial** client token, please fill in the [form on banuba.com]
 ## Learn more
 
 Banuba WebAR SDK:
-- [High-level WebAR overview]( https://docs.banuba.com/face-ar-sdk-v1/web/web_overview)
+
+- [High-level WebAR overview](https://docs.banuba.com/face-ar-sdk-v1/web/web_overview)
 - [Tutorials for common use-cases](https://docs.banuba.com/face-ar-sdk-v1/web/web_tutorials_basic)
 - [Integration tutorials](https://docs.banuba.com/face-ar-sdk-v1/web/web_tutorials_integrations)
 - [Optimization tutorials](https://docs.banuba.com/face-ar-sdk-v1/web/web_tutorials_optimizations)
 
 Banuba Makeup Effect:
+
 - [Makeup API overview](https://docs.banuba.com/face-ar-sdk-v1/effect_api/makeup)
 - [Face Beauty API overview](https://docs.banuba.com/face-ar-sdk-v1/effect_api/face_beauty)

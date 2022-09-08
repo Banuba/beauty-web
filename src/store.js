@@ -1,9 +1,9 @@
-import create from "https://cdn.jsdelivr.net/npm/lodash-es/create.min.js"
-import merge from "https://cdn.jsdelivr.net/npm/lodash-es/mergeWith.min.js"
-import isArray from "https://cdn.jsdelivr.net/npm/lodash-es/isArray.min.js"
-import isPlainObject from "https://cdn.jsdelivr.net/npm/lodash-es/isPlainObject.min.js"
 import cloneDeep from "https://cdn.jsdelivr.net/npm/lodash-es/cloneDeep.min.js"
+import create from "https://cdn.jsdelivr.net/npm/lodash-es/create.min.js"
+import isArray from "https://cdn.jsdelivr.net/npm/lodash-es/isArray.min.js"
 import isEqual from "https://cdn.jsdelivr.net/npm/lodash-es/isEqual.min.js"
+import isPlainObject from "https://cdn.jsdelivr.net/npm/lodash-es/isPlainObject.min.js"
+import merge from "https://cdn.jsdelivr.net/npm/lodash-es/mergeWith.min.js"
 import omit from "https://cdn.jsdelivr.net/npm/lodash-es/omit.min.js"
 import { createEventEmitter } from "./lib.js"
 

@@ -1,5 +1,4 @@
 import { style, theme } from "../../lib.js"
-import { html, css } from "../../utils.js"
 
 export default {
   props: {
@@ -8,7 +7,7 @@ export default {
       default: "image/*",
     },
   },
-  template: html`
+  template: /* HTML */ `
     <b-upload
       class="is-justify-content-center is-align-items-center bnb-asset-upload"
       :accept="accept"
@@ -21,7 +20,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-asset-upload {
     width: 6rem;
     height: 6rem;

@@ -1,15 +1,14 @@
 import { style } from "../lib.js"
-import { html, css } from "../utils.js"
-import Settings from "./settings.js"
+import Background from "./background.js"
+import Eyes from "./eyes.js"
+import Hair from "./hair.js"
+import Lipstick from "./lipstick.js"
 import Looks from "./looks.js"
+import LUTs from "./luts.js"
+import Makeup from "./makeup.js"
 import Presets from "./presets.js"
 import Retouch from "./retouch.js"
-import Makeup from "./makeup.js"
-import Hair from "./hair.js"
-import Eyes from "./eyes.js"
-import Lipstick from "./lipstick.js"
-import Background from "./background.js"
-import LUTs from "./luts.js"
+import Settings from "./settings.js"
 
 const routes = [
   { path: "/looks", component: Looks, meta: { icon: "looks", title: "Looks" } },
@@ -67,14 +66,14 @@ export default {
       this.transition = to.path === "/" ? "slide-right" : "slide-left"
     },
   },
-  template: html`
+  template: /* HTML */ `
     <transition :name="transition">
       <router-view />
     </transition>
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .slide-left-leave {
     opacity: 1;
     pointer-events: none;

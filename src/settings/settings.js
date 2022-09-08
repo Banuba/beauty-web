@@ -1,11 +1,10 @@
 import { style } from "../lib.js"
-import { html, css } from "../utils.js"
 import Store from "../store.js"
 
 export default {
   props: ["routes"],
   data: () => Store,
-  template: html`
+  template: /* HTML */ `
     <div class="is-flex is-flex-direction-column has-background-white bnb-settings">
       <b-button
         v-for="route in routes"
@@ -35,15 +34,15 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-settings {
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 0.125rem;
-    margin: -0.125rem;
-    padding-right: 0.75rem;
-    margin-right: -0.75rem;
     height: calc(100% + 0.25rem);
+    padding: 0.125rem;
+    padding-right: 0.75rem;
+    margin: -0.125rem;
+    margin-right: -0.75rem;
   }
   @supports (scrollbar-gutter: stable) {
     .bnb-settings {

@@ -1,13 +1,21 @@
-import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.esm.browser.min.js"
-import Router from "https://cdn.jsdelivr.net/npm/vue-router@3.5.3/dist/vue-router.esm.browser.min.js"
 import Buefy from "https://cdn.jsdelivr.net/npm/buefy@0.9.21/dist/buefy.esm.min.js"
 import Color from "https://cdn.jsdelivr.net/npm/buefy@0.9.21/src/utils/color.min.js"
 import "https://cdn.jsdelivr.net/npm/tiny-emitter@2.1.0/dist/tinyemitter.min.js"
-import { html, css } from "./utils.js"
+import Router from "https://cdn.jsdelivr.net/npm/vue-router@3.5.3/dist/vue-router.esm.browser.min.js"
+import Vue from "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.esm.browser.min.js"
 
-const createEventEmitter = () => new TinyEmitter()
+export { Vue, Router }
 
-export { Vue, Router, Color, createEventEmitter }
+export const createEventEmitter = () => new TinyEmitter()
+
+export const colorParser = (str) => {
+  const [red, green, blue, alpha = 1] = str.split(" ").map((c) => c * 255)
+  return new Color({ red, green, blue, alpha })
+}
+
+export const colorFormatter = ({ red, green, blue, alpha }) => {
+  return [red, green, blue, alpha].map((c) => (c / 255).toFixed(2)).join(" ")
+}
 
 export const style = (textContent) =>
   Object.assign(document.head.appendChild(document.createElement("style")), { textContent })
@@ -40,10 +48,11 @@ Vue.use(Buefy, {
         .then((svg) => (svgs[icon] = svg))
         .then((svg) => (this.$data.svg = svg))
     },
-    template: html` <span class="bnb-icon" v-html="svg"></span> `,
+    template: /* HTML */ ` <span class="bnb-icon" v-html="svg"></span> `,
   },
 })
-style(css`
+
+style(/* CSS */ `
   .bnb-icon {
     display: inline-flex;
   }

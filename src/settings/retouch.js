@@ -1,4 +1,3 @@
-import { html } from "../utils.js"
 import BnbSetting from "./components/setting.js"
 import BnbSlider from "./components/slider.js"
 import { morphs, teethWhitening } from "./stores/index.js"
@@ -12,7 +11,7 @@ export default {
     },
   },
   components: { BnbSetting, BnbSlider },
-  template: html`
+  template: /* HTML */ `
     <bnb-setting @reset="reset">
       <bnb-slider
         v-for="(morph, name) in morphs"

@@ -1,5 +1,4 @@
 import { style } from "../lib.js"
-import { html, css } from "../utils.js"
 import * as stores from "../settings/stores/index.js"
 
 export default {
@@ -227,7 +226,7 @@ export default {
       return dump
     },
   },
-  template: html`
+  template: /* HTML */ `
     <div
       class="is-flex is-flex-grow-1 is-flex-direction-column has-text-link has-text-centered bnb-features"
     >
@@ -279,7 +278,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .tooltip-content {
     opacity: 0.85;
   }
@@ -314,7 +313,7 @@ style(css`
   .bnb-features__list-item .has-addons {
     margin-left: 0.25rem;
     margin-right: 0.25rem;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     margin-bottom: 0.5rem;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   }
 `)

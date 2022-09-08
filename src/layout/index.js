@@ -1,11 +1,10 @@
 import { style, theme } from "../lib.js"
-import { html, css } from "../utils.js"
 import BnbNavbar from "./navbar.js"
 
 export default {
   props: ["loading"],
   components: { BnbNavbar },
-  template: html`
+  template: /* HTML */ `
     <div class="bnb-layout is-flex is-flex-direction-column has-background-link-light">
       <b-loading :active="loading" :is-full-page="false"></b-loading>
       <bnb-navbar class="is-flex-shrink-0" />
@@ -26,7 +25,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-layout {
     width: 100%;
     height: 100%;
@@ -59,7 +58,7 @@ style(css`
   }
 `)
 
-style(css`
+style(/* CSS */ `
   @media screen and (min-width: 1744px) {
     .container:not(.is-max-desktop):not(.is-max-widescreen) {
       max-width: 1680px;

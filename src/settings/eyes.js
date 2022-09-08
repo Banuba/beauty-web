@@ -1,5 +1,4 @@
-import { style, Color } from "../lib.js"
-import { html, css } from "../utils.js"
+import { style, colorParser, colorFormatter } from "../lib.js"
 import BnbSetting from "./components/setting.js"
 import BnbSlider from "./components/slider.js"
 import { brows, eyes, eyelashes, eyesMakeup as makeup } from "./stores/index.js"
@@ -22,7 +21,7 @@ export default {
     },
   },
   components: { BnbSetting, BnbSlider },
-  template: html`
+  template: /* HTML */ `
     <bnb-setting @reset="reset">
       <b-field
         class="pt-2 pb-2 mb-2"
@@ -139,26 +138,16 @@ export default {
       />
     </bnb-setting>
   `,
-  //  FIXME: icon eyes flare
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-checkbox .control-label {
     padding: 0 !important;
   }
   .bnb-colorpicker .dropdown,
   .bnb-colorpicker .dropdown-trigger,
   .bnb-colorpicker .button {
-    max-height: 30px;
     width: 100%;
+    max-height: 30px;
   }
 `)
-
-function colorParser(str) {
-  const [red, green, blue, alpha = 1] = str.split(" ").map((c) => c * 255)
-  return new Color({ red, green, blue, alpha })
-}
-
-function colorFormatter({ red, green, blue, alpha }) {
-  return [red, green, blue, alpha].map((c) => (c / 255).toFixed(2)).join(" ")
-}

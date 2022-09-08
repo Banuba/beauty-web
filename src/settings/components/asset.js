@@ -1,9 +1,8 @@
 import { style, theme } from "../../lib.js"
-import { html, css } from "../../utils.js"
 
 export default {
   props: ["cover", "title", "active"],
-  template: html`
+  template: /* HTML */ `
     <b-tooltip :label="title" append-to-body>
       <label class="bnb-asset is-inline-block is-relative is-clipped">
         <input type="radio" name="asset" :checked="active" @change="$emit('change')" />
@@ -13,7 +12,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .tooltip-content {
     opacity: 0.85;
   }

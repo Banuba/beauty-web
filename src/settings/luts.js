@@ -1,7 +1,6 @@
 import { style } from "../lib.js"
-import { html, css } from "../utils.js"
-import BnbSetting from "./components/setting.js"
 import BnbAsset from "./components/asset.js"
+import BnbSetting from "./components/setting.js"
 import Config from "./data/luts.js"
 import { lut } from "./stores/index.js"
 
@@ -13,7 +12,7 @@ export default {
     },
   },
   components: { BnbSetting, BnbAsset },
-  template: html`
+  template: /* HTML */ `
     <bnb-setting @reset="reset">
       <div class="is-flex is-flex-wrap-wrap bnb-luts">
         <bnb-asset
@@ -31,7 +30,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-luts {
     margin-right: -0.75rem;
   }

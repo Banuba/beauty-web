@@ -1,9 +1,8 @@
-import { Vue, Router } from "./lib.js"
-import { html } from "./utils.js"
+import BnbFeatures from "./features/index.js"
 import BnbLayout from "./layout/index.js"
+import { Vue, Router } from "./lib.js"
 import BnbSettings from "./settings/index.js"
 import BnbViewer from "./viewer/index.js"
-import BnbFeatures from "./features/index.js"
 
 const BnbApp = {
   data: () => ({ isLoading: false }),
@@ -13,7 +12,7 @@ const BnbApp = {
     },
   },
   components: { BnbLayout, BnbSettings, BnbViewer, BnbFeatures },
-  template: html`
+  template: /* HTML */ `
     <bnb-layout :loading="isLoading">
       <template #left>
         <bnb-settings />

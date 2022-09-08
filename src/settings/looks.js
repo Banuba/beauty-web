@@ -1,7 +1,6 @@
 import { style } from "../lib.js"
-import { html, css } from "../utils.js"
-import BnbSetting from "./components/setting.js"
 import BnbAsset from "./components/asset.js"
+import BnbSetting from "./components/setting.js"
 import Config from "./data/looks.js"
 import { look } from "./stores/index.js"
 
@@ -13,7 +12,7 @@ export default {
     },
   },
   components: { BnbSetting, BnbAsset },
-  template: html`
+  template: /* HTML */ `
     <bnb-setting @reset="reset">
       <div class="is-flex is-flex-wrap-wrap bnb-looks">
         <bnb-asset
@@ -30,7 +29,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-looks {
     margin-right: -0.75rem;
   }

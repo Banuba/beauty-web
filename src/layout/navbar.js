@@ -1,8 +1,7 @@
 import { style } from "../lib.js"
-import { html, css } from "../utils.js"
 
 export default {
-  template: html`
+  template: /* HTML */ `
     <b-navbar class="bnb-navbar pt-2 pb-2" wrapper-class="container pl-3 pr-3">
       <template #brand>
         <b-navbar-item class="has-text-grey" tag="router-link" :to="{path: '/' }">
@@ -36,7 +35,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-navbar {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
   }

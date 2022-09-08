@@ -1,7 +1,6 @@
 import { style, theme } from "../lib.js"
-import { html, css } from "../utils.js"
-import BnbStartScreen from "./start-screen.js"
 import FpsCounter from "./fps-counter.js"
+import BnbStartScreen from "./start-screen.js"
 
 export default {
   data: () => ({ source: "none" }),
@@ -27,7 +26,7 @@ export default {
       return ""
     },
   },
-  template: html`
+  template: /* HTML */ `
     <div class="is-flex is-flex-direction-column is-relative bnb-viewer">
       <slot></slot>
       <bnb-start-screen
@@ -60,7 +59,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-viewer {
     width: 100%;
   }
@@ -97,12 +96,12 @@ style(css`
     transform: translateX(-50%);
   }
   .button.bnb-viewer__close-btn {
-    background: rgba(10, 10, 10);
     position: absolute;
     top: 1rem;
     right: 1rem;
     justify-content: flex-start;
     max-width: 30px;
+    background: rgba(10, 10, 10);
     opacity: 0.3;
     transition: max-width 0.25s ease-out, opacity 0.25s ease-out;
   }

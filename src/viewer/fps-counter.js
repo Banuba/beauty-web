@@ -1,9 +1,8 @@
 import { style } from "../lib.js"
-import { html, css } from "../utils.js"
 
 export default {
   data: () => ({ isOpen: false }),
-  template: html`
+  template: /* HTML */ `
     <section class="bnb-fps">
       <b-collapse
         aria-id="fps-counter"
@@ -41,37 +40,35 @@ export default {
   `,
 }
 
-style(
-  css`
-    .bnb-fps {
-      min-width: 8.75rem;
-      color: #ffffff;
-      font-size: 0.75rem;
-      overflow: hidden;
+style(/* CSS */ `
+  .bnb-fps {
+    overflow: hidden;
+    min-width: 8.75rem;
+    color: #ffffff;
+    font-size: 0.75rem;
     }
-    .collapse-content {
-      padding: 0.5rem 0.75rem;
-    }
-    .fps-panel {
-      border-radius: 16px;
-      background: rgb(10, 10, 10);
-      opacity: 0.3;
-      transition: opacity 0.25s ease-out;
-    }
-    .fps-panel:hover,
-    .fps-panel-open {
-      opacity: 0.5;
-      transition: opacity 0.3s ease-in;
-    }
-    .fps-button {
-      font-size: 0.75rem;
-      padding-right: 1rem;
-      color: #ffffff;
-      border: none;
-      background: none;
-    }
-    .fps-info {
-      margin-top: -0.5rem;
-    }
-  `
-)
+  .collapse-content {
+    padding: 0.5rem 0.75rem;
+  }
+  .fps-panel {
+    border-radius: 16px;
+    background: rgb(10, 10, 10);
+    opacity: 0.3;
+    transition: opacity 0.25s ease-out;
+  }
+  .fps-panel:hover,
+  .fps-panel-open {
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in;
+  }
+  .fps-button {
+    padding-right: 1rem;
+    border: none;
+    background: none;
+    color: #ffffff;
+    font-size: 0.75rem;
+  }
+  .fps-info {
+    margin-top: -0.5rem;
+  }
+`)

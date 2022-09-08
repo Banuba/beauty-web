@@ -1,5 +1,4 @@
 import { style, theme } from "../lib.js"
-import { html, css } from "../utils.js"
 
 export default {
   methods: {
@@ -8,7 +7,7 @@ export default {
       this.$refs.form.reset()
     },
   },
-  template: html`
+  template: /* HTML */ `
     <form class="is-relative p-5 bnb-start-screen" ref="form">
       <b-upload
         @input="oninput($event)"
@@ -45,11 +44,11 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-start-screen {
-    width: 100%;
     height: 100%;
     max-width: 29.25rem;
+    width: 100%;
     max-height: 26.5rem;
   }
   .bnb-start-screen__upload-area {

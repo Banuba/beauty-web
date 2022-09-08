@@ -1,5 +1,4 @@
 import { style, theme } from "../../lib.js"
-import { html, css } from "../../utils.js"
 
 export default {
   props: {
@@ -21,7 +20,7 @@ export default {
   data: (vm) => ({
     step: vm.max <= 1 ? 0.01 : 1 < vm.max && vm.max <= 10 ? 0.1 : 1,
   }),
-  template: html`
+  template: /* HTML */ `
     <div class="is-flex is-flex-direction-column pt-1 pb-1">
       <div class="is-flex is-align-items-center has-text-link has-text-weight-semibold">
         <b-icon v-if="icon" class="mr-2" :icon="icon" />
@@ -47,7 +46,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-slider__track {
     padding-left: 7px;
     padding-right: 7px;

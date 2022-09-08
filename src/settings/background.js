@@ -1,5 +1,4 @@
 import { style } from "../lib.js"
-import { html, css } from "../utils.js"
 import BnbSetting from "./components/setting.js"
 import BnbSlider from "./components/slider.js"
 import { background } from "./stores/index.js"
@@ -12,7 +11,7 @@ export default {
     },
   },
   components: { BnbSetting, BnbSlider },
-  template: html`
+  template: /* HTML */ `
     <bnb-setting @reset="reset">
       <b-field class="mb-0" custom-class="has-text-link mt-1" label="Texture">
         <b-upload
@@ -74,7 +73,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .border-6 {
     border-radius: 6px !important;
   }

@@ -1,5 +1,4 @@
 import { style } from "../../lib.js"
-import { html, css } from "../../utils.js"
 
 export default {
   data: (vm) => ({
@@ -22,7 +21,7 @@ export default {
       this.ended = scrollBottom < 16
     },
   },
-  template: html`
+  template: /* HTML */ `
     <form
       :class="
       ['is-flex is-flex-direction-column has-background-white is-relative bnb-setting',
@@ -64,7 +63,7 @@ export default {
   `,
 }
 
-style(css`
+style(/* CSS */ `
   .bnb-setting {
     height: 100%;
   }
@@ -76,13 +75,13 @@ style(css`
     width: calc(100% + 1.5rem);
     height: 11.125rem;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 36.12%);
-    pointer-events: none;
-    content: "";
-    opacity: 1;
-    transition: opacity 0.2s ease-out;
     /* Safari fix */
     border-bottom-left-radius: 100%;
     border-bottom-right-radius: 100%;
+    opacity: 1;
+    transition: opacity 0.2s ease-out;
+    pointer-events: none;
+    content: "";
   }
   .bnb-setting__setting--ended::after {
     opacity: 0;
@@ -100,8 +99,8 @@ style(css`
     overflow-x: hidden;
     overflow-y: auto;
     padding-left: 0.25rem;
-    margin-left: -0.25rem;
     padding-right: 0.25rem;
+    margin-left: -0.25rem;
     margin-right: -0.25rem;
   }
   .bnb-setting__setting--overflowed .bnb-setting__content {
