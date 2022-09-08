@@ -6,7 +6,7 @@ Try it Live: [banuba.github.io/beauty-web](https://banuba.github.io/beauty-web)
 
 The demo app is built on top of [Banuba WebAR SDK](https://docs.banuba.com/face-ar-sdk-v1/web/web_overview) and [Makeup](https://docs.banuba.com/face-ar-sdk-v1/effect_api/makeup) effect. It reveals common patterns of consuming the [WebAR SDK JavaScript API](https://docs.banuba.com/face-ar-sdk-v1/generated/typedoc/) as well as the [Makeup effect API](https://docs.banuba.com/face-ar-sdk-v1/effect_api/makeup).
 
-It should help you to with common tasks like:
+Investigation of the app codebase can give you ready to go snippets for common tasks like:
 
 - [Preloading of WebAR modules](index.html#L61-L65)
 - [Preloading of a WebAR effect](index.html#L66)
@@ -41,7 +41,7 @@ Open [localhost:8080](http://localhost:8080) and start clicking :)
 
 ---
 
-If you're going to deploy the demo app on your infrastructure, replace the default Banuba Client token with your's one in the `BanubaClientToken.js` file:
+If you're going to deploy the demo app on your infrastructure, replace the default Banuba Client token with yours one in the `BanubaClientToken.js` file:
 
 ```js
 window.BANUBA_CLIENT_TOKEN = "PUT YOUR CLIENT TOKEN HERE"
@@ -51,13 +51,13 @@ Refer to the [Obtaining Banuba Client token](#obtaining-banuba-client-token) sec
 
 ## Obtaining Banuba SDK Web AR
 
-The example uses CDN version of the [@banuba/webar](https://www.npmjs.com/package/@banuba/webar) npm package for simplicity. Please use the npm package mentioned above for real world projects. Check out the [Integration tutorials](https://docs.banuba.com/face-ar-sdk-v1/web/web_tutorials_integrations) for more ways of consuming [@banuba/webar](https://www.npmjs.com/package/@banuba/webar) package.
+The example uses CDN version of the [@banuba/webar](https://www.npmjs.com/package/@banuba/webar) npm package for simplicity. Please use the npm package mentioned above for real-world projects. Check out the [Integration tutorials](https://docs.banuba.com/face-ar-sdk-v1/web/web_tutorials_integrations) for more ways of consuming [@banuba/webar](https://www.npmjs.com/package/@banuba/webar) package.
 
 ## Obtaining Banuba Client token
 
 Banuba Client token is required to get Banuba SDK Web AR working.
 
-To receive a new **trial** client token please fill in the [form on banuba.com](https://www.banuba.com/face-filters-sdk) website, or contact us via [info@banuba.com](mailto:info@banuba.com).
+To receive a new **trial** client token, please fill in the [form on banuba.com](https://www.banuba.com/face-filters-sdk) website, or contact us via [info@banuba.com](mailto:info@banuba.com).
 
 ## Learn more
 
