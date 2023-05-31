@@ -44,7 +44,7 @@
         Module,
         ImageCapture,
         Dom,
-      } from "https://cdn.jsdelivr.net/npm/@banuba/webar@1.5.0/dist/BanubaSDK.browser.esm.min.js"
+      } from "https://cdn.jsdelivr.net/npm/@banuba/webar@1.7.1-beta.1/dist/BanubaSDK.browser.esm.min.js"
       import { zipSync as zip } from "https://cdn.jsdelivr.net/npm/fflate@0.6.4/esm/browser.min.js"
       import App from "./src/app.js"
       import Store from "./src/store.js"
@@ -59,8 +59,8 @@
             clientToken: window.BANUBA_CLIENT_TOKEN,
           }),
           Module.preload(
-            ["background", "brows", "eyes", "face_tracker", "hair", "lips", "skin"].map(
-              (m) => `https://cdn.jsdelivr.net/npm/@banuba/webar@1.5.0/dist/modules/${m}.zip`
+            ["background", "eyes", "face_tracker", "hair", "lips", "skin"].map(
+              (m) => `https://cdn.jsdelivr.net/npm/@banuba/webar@1.7.1-beta.1/dist/modules/${m}.zip`
             )
           ),
           Effect.preload("assets/Makeup.zip"),
