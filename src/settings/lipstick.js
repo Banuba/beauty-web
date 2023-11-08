@@ -47,7 +47,7 @@ export default {
         :title="parameter.title"
         :value="parameter.value"
         @input="params.update({ [name]: { value: $event } })"
-        :max="['brightness', 'saturation'].includes(name) ? 2 : 1"
+        :max="['brightness', 'saturation', 'glitterIntensity', 'glitterBleeding', 'glitterGrain'].includes(name) ? 2 : 1"
       />
     </bnb-setting>
   `,

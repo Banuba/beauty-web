@@ -101,18 +101,18 @@ export default {
           if (parameter.value === initValue) continue
 
           if (name.includes("shine")) {
-            if (shine.push(parameter) === 1)
+            if (shine.push(name) === 1)
               features.push({
                 group: "Lipstick",
                 name: "Shine",
-                clear: () => shine.forEach((parameter) => lipstickParams.reset(parameter.name)),
+                clear: () => shine.forEach((name) => lipstickParams.reset(name)),
               })
           } else if (name.includes("glitter")) {
-            if (glitter.push(parameter) === 1)
+            if (glitter.push(name) === 1)
               features.push({
                 group: "Lipstick",
                 name: "Glitter",
-                clear: () => glitter.forEach((parameter) => lipstickParams.reset(parameter.name)),
+                clear: () => glitter.forEach((name) => lipstickParams.reset(name)),
               })
           } else {
             features.push({

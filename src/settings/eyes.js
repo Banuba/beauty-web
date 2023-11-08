@@ -17,6 +17,7 @@ export default {
     reset() {
       this.brows.reset()
       this.eyes.reset()
+      this.eyelashes.reset()
       this.makeup.reset()
     },
   },
