@@ -130,7 +130,7 @@
         const visibilityChangeListener = async () => {
           const isActive = document.visibilityState === "visible"
 
-          if (input != "webcam") return
+          if (input !== "webcam") return
 
           if (!isActive) {
             input.stop()
