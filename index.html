@@ -44,7 +44,7 @@
         Module,
         ImageCapture,
         Dom,
-      } from "https://cdn.jsdelivr.net/npm/@banuba/webar@1.8.0-beta.2/dist/BanubaSDK.browser.esm.min.js"
+      } from "https://cdn.jsdelivr.net/npm/@banuba/webar@1.9.1/dist/BanubaSDK.browser.esm.min.js"
       import { zipSync as zip } from "https://cdn.jsdelivr.net/npm/fflate@0.6.4/esm/browser.min.js"
       import App from "./src/app.js"
       import Store from "./src/store.js"
@@ -53,6 +53,7 @@
 
       !(async () => {
         let input
+        let source
         const [player, modules, effect] = await Promise.all([
           Player.create({
             devicePixelRatio: 1,
@@ -60,7 +61,7 @@
           }),
           Module.preload(
             ["background", "eyes", "face_tracker", "hair", "lips", "skin"].map(
-              (m) => `https://cdn.jsdelivr.net/npm/@banuba/webar@1.8.0-beta.2/dist/modules/${m}.zip`
+              (m) => `https://cdn.jsdelivr.net/npm/@banuba/webar@1.9.1/dist/modules/${m}.zip`
             )
           ),
           Effect.preload("assets/Makeup_new_morphs.zip"),
@@ -92,10 +93,12 @@
         //#endregion
 
         const useWebcam = async () => {
+          source = "webcam"
           player.use((input = new Webcam()))
           player.play()
         }
         const useImage = async (file) => {
+          source = "image"
           player.use((input = new Image(file)))
           player.play()
         }
@@ -123,6 +126,19 @@
             .then((buffer) => effect.writeFile(file.name || file, buffer))
         const evalJs = (code, files = []) =>
           Promise.all(files.filter(Boolean).map(writeFile)).then(() => effect.evalJs(code))
+
+        const visibilityChangeListener = async () => {
+          const isActive = document.visibilityState === "visible"
+
+          if (input != "webcam") return
+
+          if (!isActive) {
+            input.stop()
+          } else {
+            await useWebcam()
+          }
+        }
+        document.addEventListener("visibilitychange", visibilityChangeListener)
 
         App.$on("camera-request", () => useWebcam().then(render))
         App.$on("photo-uploaded", (file) => useImage(file).then(render))
