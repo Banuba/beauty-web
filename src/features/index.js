@@ -118,7 +118,7 @@ export default {
             features.push({
               group: "Lipstick",
               name: parameter.title,
-              clear: () => lipstickParams.reset(parameter.name),
+              clear: () => lipstickParams.reset(name),
             })
           }
         }
