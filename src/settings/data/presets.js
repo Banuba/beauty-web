@@ -129,6 +129,10 @@ export default [
   },
   {
     name: "Black and white",
+    lut: {
+      title: "Gray",
+      texture: "assets/textures/lut_gray.png",
+    },
     faceMakeup: {
       blushes: {
         color: "0.62 0.20 0.27 0.50",
@@ -154,10 +158,6 @@ export default [
       transparency: 0,
       rotation: 0,
       scale: 1,
-    },
-    lut: {
-      title: "Gray",
-      texture: "assets/textures/lut_gray.png",
     },
   },
   {
