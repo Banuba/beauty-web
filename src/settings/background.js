@@ -9,6 +9,25 @@ export default {
     reset() {
       this.background.reset()
     },
+    async setBackground(file) {
+      const tag = await exifr.orientation(file)
+      console.log(tag)
+      let rotation = 0
+      switch (tag) {
+        case 3:
+          rotation = 180
+          break
+        case 6:
+          rotation = 90
+          break
+        case 8:
+          rotation = 260
+          break
+        default:
+          break
+      }
+      background.update({ texture: file, rotation: rotation })
+    }
   },
   components: { BnbSetting, BnbSlider },
   template: /* HTML */ `
@@ -16,7 +35,7 @@ export default {
       <b-field class="mb-0" custom-class="has-text-link mt-1" label="Texture">
         <b-upload
           :value="background.texture"
-          @input="background.update({ texture: $event })"
+          @input="setBackground($event)"
           expanded
         >
           <span
