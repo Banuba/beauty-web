@@ -79,10 +79,7 @@
           render: 0,
         }
         player.addEventListener("framereceived", () => fps.cam++)
-        player.addEventListener(
-          "frameprocessed",
-          ({ detail }) => (fps.processing = 1 / detail.averagedDuration)
-        )
+        player.addEventListener("frameprocessed", ({ detail }) => fps.processing = 1000 / detail.averagedDuration)
         player.addEventListener("framerendered", () => fps.render++)
 
         setInterval(() => {
