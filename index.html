@@ -100,6 +100,26 @@
           player.use((input = new Image(file)))
           player.play()
         }
+
+        //Multile images at once using current available functions
+        const useDirectory = async (files) => {
+            const imageFiles = files.filter(file => {
+            const extensions = ['jpg', 'jpeg', 'png', 'gif'];
+            const fileExtension = file.name.split('.').pop().toLowerCase();
+            return extensions.includes(fileExtension);
+            });
+          for (const file of imageFiles) {
+            // Process each image file here
+            console.log(file.name);
+            // Example: useImage(file);
+            useImage(file);
+            
+
+            takeScreenshot();
+          }
+        }
+
+
         const takeScreenshot = async () => {
           const capture = new ImageCapture(player)
           download(await capture.takePhoto(), "WebAR_Beauty")
