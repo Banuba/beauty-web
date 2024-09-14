@@ -10,6 +10,12 @@ export default {
     reset() {
       this.selectedLut.reset()
     },
+    buttonApplyLook1(){
+      
+    },
+    buttonApplyLook2(){
+      
+    }
   },
   components: { BnbSetting, BnbAsset },
   template: /* HTML */ `

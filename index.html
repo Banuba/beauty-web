@@ -201,10 +201,10 @@
         Store.on("hair:changed", ({ enabled, color }) =>
           evalJs(`Hair.color(${enabled ? color.map((c) => `"${c}"`) : `"0 0 0 0"`})`)
         )
-        Store.on("lipstick:changed", ({ enabled, color }) =>
-          evalJs(`Lips.color("${enabled ? color : "0 0 0 0"}")`)
-        )
-        Store.on("lipstick-params:changed", (name, { value }) => evalJs(`Lips.${name}(${value})`))
+        //Store.on("lipstick:changed", ({ enabled, color }) =>
+        //  evalJs(`Lips.color("${enabled ? color : "0 0 0 0"}")`)
+        //)
+        //Store.on("lipstick-params:changed", (name, { value }) => evalJs(`Lips.${name}(${value})`))
         Store.on("background:changed", async (name, value) => {
           if (name === "texture" && typeof value === "string") value = await createFile(value)
           evalJs(
