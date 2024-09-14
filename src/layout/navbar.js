@@ -9,6 +9,7 @@ export default {
         </b-navbar-item>
       </template>
       <template #end>
+        <!--
         <b-navbar-item
           class="button is-ghost"
           href="https://docs.banuba.com/face-ar-sdk-v1/effect_api/face_beauty"
@@ -16,13 +17,16 @@ export default {
         >
           Documentation
         </b-navbar-item>
+        -->
         <b-navbar-item
           class="button is-ghost ml-2"
-          href="https://github.com/Banuba/beauty-web"
+          href="https://github.com/Banuba/beauty-web" 
           target="_blank"
         >
+        <!-- Original example by Baunba-->
           Clone example
         </b-navbar-item>
+        <!--
         <b-navbar-item
           class="button is-link is-light ml-2"
           href="https://docs.banuba.com/face-ar-sdk-v1/generated/effects/Makeup.zip"
@@ -30,6 +34,7 @@ export default {
         >
           Download Makeup API
         </b-navbar-item>
+        -->
       </template>
     </b-navbar>
   `,

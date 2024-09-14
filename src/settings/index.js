@@ -15,7 +15,7 @@ const routes = [
   {
     path: "/presets",
     component: Presets,
-    meta: { icon: "presets", title: "Presets" },
+    meta: { icon: "presets", title: "Presets/Reseach Stuff" },
   },
   {
     path: "/retouch",
@@ -42,12 +42,12 @@ const routes = [
   //   component: Hair,
   //   meta: { icon: "hair", title: "Hair" },
   // },
-  {
-    path: "/background",
-    component: Background,
-    meta: { icon: "background", title: "Background" },
-  },
-  { path: "/luts", component: LUTs, meta: { icon: "luts", title: "Research" } },
+  // {
+  //   path: "/background",
+  //   component: Background,
+  //   meta: { icon: "background", title: "Background" },
+  // },
+  //{ path: "/luts", component: LUTs, meta: { icon: "luts", title: "Research" } },
 ]
 
 const root = {
