@@ -45,16 +45,16 @@
         Module,
         ImageCapture,
         Dom,
-      } from "https://cdn.jsdelivr.net/npm/@banuba/webar@1.10.0/dist/BanubaSDK.browser.esm.min.js"
-      import { zipSync as zip } from "https://cdn.jsdelivr.net/npm/fflate@0.6.4/esm/browser.min.js"
-      import App from "./src/app.js"
-      import Store from "./src/store.js"
+      } from "https://cdn.jsdelivr.net/npm/@banuba/webar@1.16.0/dist/BanubaSDK.browser.esm.min.js";
+      import { zipSync as zip } from "https://cdn.jsdelivr.net/npm/fflate@0.6.4/esm/browser.min.js";
+      import App from "./src/app.js";
+      import Store from "./src/store.js";
 
-      App.$children[0].toggleLoading()
+      App.$children[0].toggleLoading();
 
       !(async () => {
-        let input
-        let source
+        let input;
+        let source;
         const [player, modules, effect] = await Promise.all([
           Player.create({
             devicePixelRatio: 1,
@@ -62,131 +62,149 @@
           }),
           Module.preload(
             ["background", "eyes", "face_tracker", "hair", "lips", "skin"].map(
-              (m) => `https://cdn.jsdelivr.net/npm/@banuba/webar@1.10.0/dist/modules/${m}.zip`
+              (m) =>
+                `https://cdn.jsdelivr.net/npm/@banuba/webar@1.16.0/dist/modules/${m}.zip`
             )
           ),
           Effect.preload("assets/Makeup_new_morphs.zip"),
-        ])
-        await player.addModule(...modules)
-        await player.applyEffect(effect)
+        ]);
+        await player.addModule(...modules);
+        await player.applyEffect(effect);
 
-        App.$children[0].toggleLoading()
+        App.$children[0].toggleLoading();
 
         //#region fps count
         const fps = {
           cam: 0,
           processing: 0,
           render: 0,
-        }
-        player.addEventListener("framereceived", () => fps.cam++)
-        player.addEventListener("frameprocessed", ({ detail }) => fps.processing = 1000 / detail.averagedDuration)
-        player.addEventListener("framerendered", () => fps.render++)
+        };
+        player.addEventListener("framereceived", () => fps.cam++);
+        player.addEventListener(
+          "frameprocessed",
+          ({ detail }) => (fps.processing = 1000 / detail.averagedDuration)
+        );
+        player.addEventListener("framerendered", () => fps.render++);
 
         setInterval(() => {
           Object.entries(fps).forEach(([name, value]) => {
-            fps[name] = 0
-            document.getElementById(name).innerText = value.toFixed(1)
-          })
-        }, 1000)
+            fps[name] = 0;
+            document.getElementById(name).innerText = value.toFixed(1);
+          });
+        }, 1000);
         //#endregion
 
         const useWebcam = async () => {
-          source = "webcam"
-          player.use((input = new Webcam()))
-          player.play()
-        }
+          source = "webcam";
+          player.use((input = new Webcam()));
+          player.play();
+        };
         const useImage = async (file) => {
-          source = "image"
-          player.use((input = new Image(file)))
-          player.play()
-        }
+          source = "image";
+          player.use((input = new Image(file)));
+          player.play();
+        };
         const takeScreenshot = async () => {
-          const capture = new ImageCapture(player)
-          download(await capture.takePhoto(), "WebAR_Beauty")
-        }
+          const capture = new ImageCapture(player);
+          download(await capture.takePhoto(), "WebAR_Beauty");
+        };
         const stop = async () => {
-          input?.stop?.()
-        }
+          input?.stop?.();
+        };
 
         const resizeObserver = new ResizeObserver(
           ([{ target, contentRect }]) =>
-            (target.style.objectFit = contentRect.height > contentRect.width ? "contain" : "cover")
-        )
+            (target.style.objectFit =
+              contentRect.height > contentRect.width ? "contain" : "cover")
+        );
         const render = () => {
-          Dom.render(player, "#webar")
-          resizeObserver.observe(document.querySelector("#webar > canvas"))
-        }
-        const unmount = () => Dom.unmount("#webar")
+          Dom.render(player, "#webar");
+          resizeObserver.observe(document.querySelector("#webar > canvas"));
+        };
+        const unmount = () => Dom.unmount("#webar");
 
         const writeFile = (file) =>
           (file instanceof File ? Promise.resolve(file) : fetch(file))
             .then((res) => res.arrayBuffer())
-            .then((buffer) => effect.writeFile(file.name || file, buffer))
+            .then((buffer) => effect.writeFile(file.name || file, buffer));
         const evalJs = (code, files = []) =>
-          Promise.all(files.filter(Boolean).map(writeFile)).then(() => effect.evalJs(code))
+          Promise.all(files.filter(Boolean).map(writeFile)).then(() =>
+            effect.evalJs(code)
+          );
 
         const visibilityChangeListener = async () => {
-          const isActive = document.visibilityState === "visible"
+          const isActive = document.visibilityState === "visible";
 
-          if (source !== "webcam") return
+          if (source !== "webcam") return;
 
           if (!isActive) {
-            input.stop()
+            input.stop();
           } else {
-            await useWebcam()
+            await useWebcam();
           }
-        }
-        document.addEventListener("visibilitychange", visibilityChangeListener)
+        };
+        document.addEventListener("visibilitychange", visibilityChangeListener);
 
-        App.$on("camera-request", () => useWebcam().then(render))
-        App.$on("photo-uploaded", (file) => useImage(file).then(render))
-        App.$on("screenshot-request", takeScreenshot)
-        App.$on("close-request", stop), App.$on("close-request", unmount)
+        App.$on("camera-request", () => useWebcam().then(render));
+        App.$on("photo-uploaded", (file) => useImage(file).then(render));
+        App.$on("screenshot-request", takeScreenshot);
+        App.$on("close-request", stop), App.$on("close-request", unmount);
         App.$on("preset-download-request", (preset) =>
           download(appendToConfig(effect, presetToCode(preset)), "Makeup.zip")
-        )
-        App.$on("preset-copy-request", (preset) => copyToClipboard(presetToCode(preset)))
-        App.$on("close-request", stop), App.$on("close-request", unmount)
+        );
+        App.$on("preset-copy-request", (preset) =>
+          copyToClipboard(presetToCode(preset))
+        );
+        App.$on("close-request", stop), App.$on("close-request", unmount);
 
         Store.on("look:changed", ({ texture = "" }) =>
           evalJs(`Makeup.set("${texture}")`, [texture])
-        )
+        );
         Store.on("face-makeup:changed", (name, { color, enabled }) =>
           evalJs(`Makeup.${name}("${enabled ? color : "0 0 0 0"}")`)
-        )
+        );
         Store.on("eyes-makeup:changed", (name, { color, enabled }) =>
           evalJs(`Makeup.${name}("${enabled ? color : "0 0 0 0"}")`)
-        )
+        );
         Store.on("skin:changed", (name, { color, enabled, strength }) => {
           typeof strength !== "undefined"
             ? evalJs(`Skin.${name}(${strength})`)
-            : evalJs(`Skin.${name}("${enabled ? color : "0 0 0 0"}")`)
-        })
-        Store.on("morphs:changed", (name, { strength }) => evalJs(`FaceMorph.${name}(${strength})`))
+            : evalJs(`Skin.${name}("${enabled ? color : "0 0 0 0"}")`);
+        });
+        Store.on("morphs:changed", (name, { strength }) =>
+          evalJs(`FaceMorph.${name}(${strength})`)
+        );
         Store.on("teeth-whitening:changed", ({ strength }) =>
           evalJs(`Teeth.whitening(${strength})`)
-        )
+        );
         Store.on("eyes:changed", (name, { enabled, color, strength }) => {
           typeof strength !== "undefined"
             ? evalJs(`Eyes.${name}(${strength})`)
-            : evalJs(`Eyes.${name}("${enabled ? color : "0 0 0 0"}")`)
-        })
+            : evalJs(`Eyes.${name}("${enabled ? color : "0 0 0 0"}")`);
+        });
         Store.on("eyelashes:changed", ({ enabled, color }) => {
-          evalJs(`Eyelashes.color("${enabled ? color : "0 0 0 0"}")`)
-        })
+          evalJs(`Eyelashes.color("${enabled ? color : "0 0 0 0"}")`);
+        });
         Store.on("brows:changed", ({ enabled, color }) =>
           evalJs(`Brows.color("${enabled ? color : "0 0 0 0"}")`)
-        )
-        Store.on("softlight:changed", ({ strength }) => evalJs(`Softlight.strength(${strength})`))
+        );
+        Store.on("softlight:changed", ({ strength }) =>
+          evalJs(`Softlight.strength(${strength})`)
+        );
         Store.on("hair:changed", ({ enabled, color }) =>
-          evalJs(`Hair.color(${enabled ? color.map((c) => `"${c}"`) : `"0 0 0 0"`})`)
-        )
+          evalJs(
+            `Hair.color(${enabled ? color.map((c) => `"${c}"`) : `"0 0 0 0"`})`
+          )
+        );
         Store.on("lipstick:changed", ({ enabled, color }) =>
           evalJs(`Lips.color("${enabled ? color : "0 0 0 0"}")`)
-        )
-        Store.on("lipstick-params:changed", (name, { value }) => evalJs(`Lips.${name}(${value})`))
+        );
+        Store.on("lipstick-params:changed", (name, { value }) =>
+          evalJs(`Lips.${name}(${value})`)
+        );
         Store.on("background:changed", async (name, value) => {
-          if (name === "texture" && typeof value === "string") value = await createFile(value)
+          if (name === "texture" && typeof value === "string")
+            value = await createFile(value);
           evalJs(
             `Background.${name}(${
               value instanceof File
@@ -196,19 +214,21 @@
                 : value
             })`,
             value instanceof File ? [value] : []
-          )
-        })
-        Store.on("lut:changed", ({ texture = "" }) => evalJs(`Filter.set("${texture}")`, [texture]))
-      })()
+          );
+        });
+        Store.on("lut:changed", ({ texture = "" }) =>
+          evalJs(`Filter.set("${texture}")`, [texture])
+        );
+      })();
 
       /* Utils */
       function appendToConfig(effect, code) {
-        code = new TextEncoder().encode(code)
+        code = new TextEncoder().encode(code);
         // these properties are private, don't use them in your code
-        const data = effect["_resource"]["_data"]
-        const cfg = data["config.js"]
+        const data = effect["_resource"]["_data"];
+        const cfg = data["config.js"];
 
-        return { ...data, "config.js": new Uint8Array([...cfg, ...code]) }
+        return { ...data, "config.js": new Uint8Array([...cfg, ...code]) };
       }
 
       function presetToCode({
@@ -228,69 +248,80 @@
         softlight,
         teethWhitening,
       }) {
-        const commands = []
+        const commands = [];
 
         if (background)
           for (const [name, value] of Object.entries(background))
-            commands.push(`Background.${name}(${typeof value === "string" ? `"${value}"` : value})`)
+            commands.push(
+              `Background.${name}(${
+                typeof value === "string" ? `"${value}"` : value
+              })`
+            );
 
-        if (brows) commands.push(`Brows.color("${brows}")`)
+        if (brows) commands.push(`Brows.color("${brows}")`);
 
-        if (eyelashes) commands.push(`Eyelashes.color("${eyelashes}")`)
+        if (eyelashes) commands.push(`Eyelashes.color("${eyelashes}")`);
 
         if (eyes)
-          for (const [name, value] of Object.entries(eyes)) commands.push(`Eyes.${name}(${value})`)
+          for (const [name, value] of Object.entries(eyes))
+            commands.push(`Eyes.${name}(${value})`);
 
         if (eyesMakeup)
           for (const [name, value] of Object.entries(eyesMakeup))
-            commands.push(`Makeup.${name}("${value}")`)
+            commands.push(`Makeup.${name}("${value}")`);
 
-        if (hair) commands.push(`Hair.color(${hair.map((c) => `"${c}"`)})`)
+        if (hair) commands.push(`Hair.color(${hair.map((c) => `"${c}"`)})`);
 
-        if (lipstick) commands.push(`Lips.color("${lipstick}")`)
+        if (lipstick) commands.push(`Lips.color("${lipstick}")`);
 
         if (lipstickParams)
           for (const [name, value] of Object.entries(lipstickParams))
-            commands.push(`Lips.${name}(${value})`)
+            commands.push(`Lips.${name}(${value})`);
 
-        if (look) commands.push(`Makeup.set("${look}")`)
+        if (look) commands.push(`Makeup.set("${look}")`);
 
-        if (lut) commands.push(`Filter.set("${lut}")`)
+        if (lut) commands.push(`Filter.set("${lut}")`);
 
-        if (morphs) for (const name in morphs) commands.push(`FaceMorph.${name}(${morphs[name]})`)
+        if (morphs)
+          for (const name in morphs)
+            commands.push(`FaceMorph.${name}(${morphs[name]})`);
 
         if (faceMakeup)
           for (const [name, value] of Object.entries(faceMakeup))
-            commands.push(`Makeup.${name}("${value}")`)
+            commands.push(`Makeup.${name}("${value}")`);
 
         if (skin)
           for (const [name, value] of Object.entries(skin))
-            commands.push(`Skin.${name}(${typeof value === "string" ? `"${value}"` : value})`)
+            commands.push(
+              `Skin.${name}(${
+                typeof value === "string" ? `"${value}"` : value
+              })`
+            );
 
-        if (softlight) commands.push(`Softlight.strength(${softlight})`)
+        if (softlight) commands.push(`Softlight.strength(${softlight})`);
 
-        if (teethWhitening) commands.push(`Teeth.whitening(${teethWhitening})`)
+        if (teethWhitening) commands.push(`Teeth.whitening(${teethWhitening})`);
 
-        return commands.join(";\n")
+        return commands.join(";\n");
       }
 
       function copyToClipboard(text) {
-        navigator.clipboard.writeText(text)
+        navigator.clipboard.writeText(text);
       }
 
       function download(blob, name) {
-        if (!(blob instanceof Blob)) blob = new Blob([zip(blob)])
+        if (!(blob instanceof Blob)) blob = new Blob([zip(blob)]);
 
-        const a = document.createElement("a")
-        a.href = URL.createObjectURL(blob)
-        a.download = name
-        a.click()
-        URL.revokeObjectURL(a.href)
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = name;
+        a.click();
+        URL.revokeObjectURL(a.href);
       }
 
       async function createFile(url) {
-        const data = await fetch(url).then((response) => response.blob())
-        return new File([data], url)
+        const data = await fetch(url).then((response) => response.blob());
+        return new File([data], url);
       }
     </script>
   </body>
