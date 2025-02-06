@@ -4,7 +4,7 @@ Try it Live: [banuba.github.io/beauty-web](https://banuba.github.io/beauty-web)
 
 ![WebAR/Beauty preview](preview.png)
 
-The demo app is built on top of [Banuba WebAR SDK](https://docs.banuba.com/face-ar-sdk-v1/web/web_overview) and [Makeup](https://docs.banuba.com/face-ar-sdk-v1/effect_api/makeup) effect. It reveals common patterns of consuming the [WebAR SDK JavaScript API](https://docs.banuba.com/face-ar-sdk-v1/generated/typedoc/) as well as the [Makeup effect API](https://docs.banuba.com/face-ar-sdk-v1/effect_api/makeup).
+The demo app is built on top of [Banuba WebAR SDK](https://docs.banuba.com/far-sdk/tutorials/development/basic_integration?platform=web) and [Makeup](https://docs.banuba.com/face-ar-sdk-v1/effect_api/makeup) effect. It reveals common patterns of consuming the [WebAR SDK JavaScript API](https://docs.banuba.com/face-ar-sdk-v1/generated/typedoc/) as well as the [Makeup effect API](https://docs.banuba.com/face-ar-sdk-v1/effect_api/makeup).
 
 Investigation of the app codebase can give you ready to go snippets for common tasks like:
 
@@ -66,12 +66,10 @@ To receive a new **trial** client token, please fill in the [form on banuba.com]
 
 Banuba WebAR SDK:
 
-- [High-level WebAR overview](https://docs.banuba.com/face-ar-sdk-v1/web/web_overview)
-- [Tutorials for common use-cases](https://docs.banuba.com/face-ar-sdk-v1/web/web_tutorials_basic)
-- [Integration tutorials](https://docs.banuba.com/face-ar-sdk-v1/web/web_tutorials_integrations)
-- [Optimization tutorials](https://docs.banuba.com/face-ar-sdk-v1/web/web_tutorials_optimizations)
+- [High-level WebAR overview](https://docs.banuba.com/far-sdk/tutorials/development/basic_integration?platform=web)
+- [Integration tutorials](https://docs.banuba.com/far-sdk/tutorials/development/installation)
+- [Optimization tutorials](https://docs.banuba.com/far-sdk/tutorials/development/guides/optimization)
 
 Banuba Makeup Effect:
 
-- [Makeup API overview](https://docs.banuba.com/face-ar-sdk-v1/effect_api/makeup)
-- [Face Beauty API overview](https://docs.banuba.com/face-ar-sdk-v1/effect_api/face_beauty)
+- [Makeup API overview](https://docs.banuba.com/far-sdk/effects/makeup_deprecated/makeup)
