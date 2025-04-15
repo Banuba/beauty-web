@@ -46,7 +46,7 @@
         Module,
         ImageCapture,
         Dom,
-      } from "https://cdn.jsdelivr.net/npm/@banuba/webar@1.16.0/dist/BanubaSDK.browser.esm.min.js";
+      } from "https://cdn.jsdelivr.net/npm/@banuba/webar@1.17.0/dist/BanubaSDK.browser.esm.min.js";
       import { zipSync as zip } from "https://cdn.jsdelivr.net/npm/fflate@0.6.4/esm/browser.min.js";
       import App from "./src/app.js";
       import Store from "./src/store.js";
@@ -64,7 +64,7 @@
           Module.preload(
             ["background", "eyes", "face_tracker", "hair", "lips", "skin"].map(
               (m) =>
-                `https://cdn.jsdelivr.net/npm/@banuba/webar@1.16.0/dist/modules/${m}.zip`
+                `https://cdn.jsdelivr.net/npm/@banuba/webar@1.17.0/dist/modules/${m}.zip`
             )
           ),
           Effect.preload("assets/Makeup_new_morphs.zip"),
